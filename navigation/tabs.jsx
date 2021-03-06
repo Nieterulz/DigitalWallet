@@ -1,15 +1,14 @@
 import {
-    BottomTabBarButtonProps,
-    createBottomTabNavigator,
+    createBottomTabNavigator
 } from "@react-navigation/bottom-tabs";
 import React from "react";
 import { Image, StyleSheet, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Svg, { Path } from "react-native-svg";
 import { icons } from "../constants";
-import { COLORS } from "./../constants/theme";
-import Home from "./../screens/Home";
-import Scan from "./../screens/Scan";
+import { COLORS } from "../constants/theme";
+import Home from "../screens/Home";
+import Scan from "../screens/Scan";
 
 const Tab = createBottomTabNavigator();
 
@@ -18,7 +17,7 @@ const TabBarCustomButton = ({
     accessibilityState,
     children,
     onPress,
-}: BottomTabBarButtonProps) => {
+}) => {
     const isSelected = accessibilityState?.selected;
 
     if (isSelected === true) {

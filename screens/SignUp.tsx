@@ -1,3 +1,4 @@
+import { StackNavigationProp } from "@react-navigation/stack";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect, useState } from "react";
 import {
@@ -5,7 +6,6 @@ import {
     KeyboardAvoidingView,
     ListRenderItem,
     Modal,
-    Platform,
     Text,
     TouchableOpacity,
     View,
@@ -21,7 +21,20 @@ interface Country {
     name: string;
 }
 
-const SignUp = () => {
+type RootStackParamList = {
+    Home: undefined;
+};
+
+type ProfileScreenNavigationProp = StackNavigationProp<
+    RootStackParamList,
+    "Home"
+>;
+
+type Props = {
+    navigation: ProfileScreenNavigationProp;
+};
+
+const SignUp = ({ navigation }: Props) => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [areas, setAreas] = useState<any>([]);
     const [selectedArea, setSelectedArea] = useState<null | Country>(null);
@@ -269,6 +282,7 @@ const SignUp = () => {
                         alignItems: "center",
                         justifyContent: "center",
                     }}
+                    onPress={() => navigation.navigate("Home")}
                 >
                     <Text style={{ color: COLORS.white, ...FONTS.h3 }}>
                         Continue
@@ -303,18 +317,17 @@ const SignUp = () => {
         return (
             <View>
                 <Modal
-                    animationType="slide"
+                    animationType="fade"
                     visible={modalVisible}
                     transparent={true}
                     onRequestClose={() => setModalVisible(false)}
                 >
-                    <TouchableOpacity
-                        onPress={() => setModalVisible(false)}
-                        onLongPress={() => {}}
+                    <View
                         style={{
                             flex: 1,
                             justifyContent: "center",
                             alignItems: "center",
+                            backgroundColor: "rgba(0, 0, 0, 0.2)",
                         }}
                     >
                         <View
@@ -339,17 +352,14 @@ const SignUp = () => {
                                 }}
                             ></FlatList>
                         </View>
-                    </TouchableOpacity>
+                    </View>
                 </Modal>
             </View>
         );
     };
 
     return (
-        <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : undefined}
-            style={{ flex: 1 }}
-        >
+        <KeyboardAvoidingView style={{ flex: 1 }}>
             <LinearGradient
                 colors={[COLORS.lime, COLORS.emerald]}
                 style={{ flex: 1 }}
